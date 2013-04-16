@@ -78,6 +78,7 @@ def initialize_raid_from_snapshot( cmds, md_device, attached_devices ):
 
 def initialize_filesystem(cmds, wipe, md_device, volgroup, logvol, format_cmds, filesystem, mountpoint):
     device_short = os.path.basename(md_device).title()
+    volgroup += device_short
     cmds.append("vgcreate %s %s" % ( volgroup, md_device ) )
     cmds.append("lvcreate -l 100%%vg -n %s%s %s" % (logvol, device_short, volgroup) )
     if wipe is True:
